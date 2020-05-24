@@ -332,13 +332,22 @@ server:
     # FORWARD ZONE
     ###########################################################################
 
-    include: /opt/unbound/etc/unbound/forward-records.conf
+    # include: /opt/unbound/etc/unbound/forward-records.conf
+    
+    ###########################################################################
+    # RECURSIVE (NON FORWARDING)
+    ###########################################################################
+    
+    include: /opt/unbound/etc/unbound/recursive.conf
 
 
 remote-control:
     control-enable: no
 EOT
 fi
+
+wget -O root.hints https://www.internic.net/domain/named.root
+sudo mv root.hints /var/lib/unbound/
 
 mkdir -p /opt/unbound/etc/unbound/dev && \
 cp -a /dev/random /dev/urandom /opt/unbound/etc/unbound/dev/
